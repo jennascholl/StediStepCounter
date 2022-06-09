@@ -9,6 +9,7 @@ import Home from './Home.js';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useState } from "react";
 
 // import Icons from "./Icons";
 const Tab = createMaterialBottomTabNavigator();
