@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +9,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useState } from "react";
+import { SafeAreaView } from 'react-native';
+import { Button } from 'react-native-paper';
 
 // import Icons from "./Icons";
 const Tab = createMaterialBottomTabNavigator();
@@ -63,7 +64,7 @@ export default function App(props) {
   } else {
     return (
       <View>
-        <Login/>
+        <Login />
       </View>
     )
   }

@@ -12,12 +12,14 @@ const Login = () => {
         onChangeText={setPhoneNumber}
         value={phoneNumber}
         placeholder="555-555-5555"
+        placeholderTextColor='#D3D3D3'
       />
       <TextInput
         style={styles.input}
         onChangeText={setOneTimePassword}
         value={oneTimePassword}
         placeholder="1234"
+        placeholderTextColor='#D3D3D3'
         keyboardType="numeric"
         secureTextEntry={true}
       />
@@ -32,6 +34,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  mainView: {
+    marginTop: 100
+  }
 });
 
 export default Login;
