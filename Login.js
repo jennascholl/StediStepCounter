@@ -1,12 +1,41 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Image, Text, View } from "react-native";
+import { Button } from "react-native-elements";
+
+const SendText = async (phoneNumber) => {
+  console.log(phoneNumber);
+  const loginResponse = await fetch('https://dev.stedi.me/twofactorlogin/' + phoneNumber, {
+    method: 'Post',
+    headers: {
+      'Content-Type': 'application/text'
+    }
+  })
+  const loginResponseText = await loginResponse.text();
+  console.log(loginResponseText);
+};
+
+const getToken = async ({ phoneNumber, otp }) => {
+  const loginResponse = await fetch('https://dev.stedi.me/twofactorlogin', {
+    method: 'Post',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: {
+      phoneNumber,
+      oneTimePassword: otp
+    }
+  });
+  const token = await loginResponse.text();
+  console.log(token)
+  
+};
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oneTimePassword, setOneTimePassword] = useState(null);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.margin}>
       <TextInput
         style={styles.input}
         onChangeText={setPhoneNumber}
@@ -23,6 +52,12 @@ const Login = () => {
         keyboardType="numeric"
         secureTextEntry={true}
       />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => SendText(phoneNumber)}>
+        <Text style={styles.text}>Send Text</Text>
+        
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -36,6 +71,13 @@ const styles = StyleSheet.create({
   },
   mainView: {
     marginTop: 100
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#009707",
+    padding: 10,
+    height: 40,
+    alignSelf: "center"
   }
 });
 
