@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Image, Text, View } from "react-native";
-import { Button } from "react-native-elements";
 
 const SendText = async (phoneNumber) => {
   console.log(phoneNumber);
@@ -14,23 +13,26 @@ const SendText = async (phoneNumber) => {
   console.log(loginResponseText);
 };
 
-const getToken = async ({ phoneNumber, otp }) => {
+const getToken = async ({ phoneNumber, oneTimePassword, setUserLoggedIn }) => {
   const loginResponse = await fetch('https://dev.stedi.me/twofactorlogin', {
-    method: 'Post',
+    method: 'POST',
+    body: JSON.stringify({oneTimePassword, phoneNumber}),
     headers: {
-      'content-type': 'application/json'
-    },
-    body: {
-      phoneNumber,
-      oneTimePassword: otp
+      'Content-Type': 'application/json'
     }
   });
-  const token = await loginResponse.text();
-  console.log(token)
+
+  const responseCode = tokenResponse.status;
+  if (responseCode == 200) {
+     setUserLoggedIn(true);
+  }
+  const tokenResponseString = await tokenResponse.text();
+  console.log(tokenResponseString)
+  setUserLoggedIn(true);
   
 };
 
-const Login = () => {
+const Login = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oneTimePassword, setOneTimePassword] = useState(null);
 
@@ -43,6 +45,11 @@ const Login = () => {
         placeholder="555-555-5555"
         placeholderTextColor='#D3D3D3'
       />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => SendText(phoneNumber)}>
+        <Text style={styles.text}>Send Text</Text>       
+      </TouchableOpacity>
       <TextInput
         style={styles.input}
         onChangeText={setOneTimePassword}
@@ -54,9 +61,8 @@ const Login = () => {
       />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => SendText(phoneNumber)}>
-        <Text style={styles.text}>Send Text</Text>
-        
+        onPress={() => getToken({ phoneNumber, oneTimePassword, setUserLoggedIn:props.setUserLoggedIn })}>
+        <Text style={styles.text}>Log In</Text>       
       </TouchableOpacity>
     </SafeAreaView>
   );
