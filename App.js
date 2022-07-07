@@ -17,6 +17,8 @@ const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [token, setToken] = useState(false);
+  const [userName, setUserName]  = useState(false);
 
   if (userLoggedIn)
   {
@@ -29,7 +31,8 @@ export default function App() {
         >
           <Tab.Screen
             name='Home'
-            component={Home}
+            children={() => <Home userName={userName} />}
+            // component={Home}
             options={{
               tabBarLabel: 'Home',
               tabBarIcon: ({ color }) => (
@@ -63,7 +66,7 @@ export default function App() {
     
   } else {
     return (
-      <Login setUserLoggedIn={setUserLoggedIn} />
+      <Login setUserLoggedIn={setUserLoggedIn} setToken={setToken} setUserName={setUserName}/>
     )
   }
 }

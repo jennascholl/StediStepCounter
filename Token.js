@@ -1,23 +1,24 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
+import Login from "./Login.js";
 
-function AppName() {
+function Token(props) {
     return (
-      <View style={styles.appName}>
-        <Text style={styles.text}>STEDI Balance</Text>
+      <View style={styles.token}>
+        <Text style={styles.text}>{props.userName}</Text>
       </View>
     );
   }
 
-export default AppName
+export default Token
 
 const styles = StyleSheet.create({
-  appName: {
+  token: {
     paddingLeft:20,
   },
   text: {
     color: 'white',
-    fontWeight: '600',
-    fontSize: 20
+    fontWeight: '300',
+    fontSize: 15
   }
 })

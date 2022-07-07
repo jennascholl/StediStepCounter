@@ -1,13 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import AppName from "./AppName";
+import Token from "./Token";
 import Setting from "./Setting";
 
-function Bar() {
+function Bar(props) {
     return(
         <View style={styles.bar}>
             <AppName />
-            <Setting />  
+            <Token userName={props.userName}/>
+            {/* <Setting />   */}
         </View>
     )
   }
